@@ -30,6 +30,8 @@ bool SfeADS1219Driver::begin()
     if (!reset())
         return false;
 
+    delay(1); // Wait >100us (tRSSTA)
+
     sfe_ads1219_reg_cfg_t config;
     bool result = (_theBus->readRegisterByte(kSfeADS1219RegConfigRead, config.byte) == kSTkErrOk);
     return (result && (config.byte == 0));
@@ -54,6 +56,17 @@ bool SfeADS1219Driver::startSync()
 bool SfeADS1219Driver::powerDown()
 {
     return (_theBus->writeByte(kSfeADS1219CommandPowerDown) == kSTkErrOk);
+}
+
+/// @brief Configure the conversion mode.
+/// @return True if successful, false otherwise.
+bool SfeADS1219Driver::setConversionMode(const ads1219_conversion_mode_config_t mode)
+{
+    sfe_ads1219_reg_cfg_t config;
+    if (_theBus->readRegisterByte(kSfeADS1219RegConfigRead, config.byte) != kSTkErrOk) // Read the config register
+        return false;
+    config.cm = (uint8_t)mode; // Update (only) the conversion mode
+    return (_theBus->writeRegisterByte(kSfeADS1219RegConfigWrite, config.byte) == kSTkErrOk); // Write the config register
 }
 
 /// @brief Reads the ADC conversion data, converts it to a usable form, and
