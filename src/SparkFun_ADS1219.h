@@ -174,13 +174,13 @@ public:
     /// @return true if successful, false otherwise.
     bool readConversion(void);
 
-    /// @brief Configure the input multiplexer.
-    /// @return True if successful, false otherwise.
-    bool setInputMultiplexer(const ads1219_input_multiplexer_config_t config = ADS1219_CONFIG_MUX_DIFF_P0_N1);
-
     /// @brief Configure the conversion mode.
     /// @return True if successful, false otherwise.
     bool setConversionMode(const ads1219_conversion_mode_config_t mode = ADS1219_CONVERSION_SINGLE_SHOT);
+
+    /// @brief Configure the input multiplexer.
+    /// @return True if successful, false otherwise.
+    bool setInputMultiplexer(const ads1219_input_multiplexer_config_t config = ADS1219_CONFIG_MUX_DIFF_P0_N1);
 
     /// @brief  Return the conversion result which was read by readConversion.
     /// Convert it to mV using referenceVoltageMillivolts and the _adcGain.

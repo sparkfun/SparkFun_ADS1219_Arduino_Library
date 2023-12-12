@@ -65,7 +65,18 @@ bool SfeADS1219Driver::setConversionMode(const ads1219_conversion_mode_config_t 
     sfe_ads1219_reg_cfg_t config;
     if (_theBus->readRegisterByte(kSfeADS1219RegConfigRead, config.byte) != kSTkErrOk) // Read the config register
         return false;
-    config.cm = (uint8_t)mode; // Update (only) the conversion mode
+    config.cm = (uint8_t)mode; // Modify (only) the conversion mode
+    return (_theBus->writeRegisterByte(kSfeADS1219RegConfigWrite, config.byte) == kSTkErrOk); // Write the config register
+}
+
+/// @brief Configure the input multiplexer.
+/// @return True if successful, false otherwise.
+bool SfeADS1219Driver::setInputMultiplexer(const ads1219_input_multiplexer_config_t mux)
+{
+    sfe_ads1219_reg_cfg_t config;
+    if (_theBus->readRegisterByte(kSfeADS1219RegConfigRead, config.byte) != kSTkErrOk) // Read the config register
+        return false;
+    config.mux = (uint8_t)mux; // Modify (only) the input multiplexer
     return (_theBus->writeRegisterByte(kSfeADS1219RegConfigWrite, config.byte) == kSTkErrOk); // Write the config register
 }
 
