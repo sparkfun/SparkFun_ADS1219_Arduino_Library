@@ -182,6 +182,18 @@ public:
     /// @return True if successful, false otherwise.
     bool setInputMultiplexer(const ads1219_input_multiplexer_config_t config = ADS1219_CONFIG_MUX_DIFF_P0_N1);
 
+    /// @brief Configure the gain.
+    /// @return True if successful, false otherwise.
+    bool setGain(const ads1219_gain_config_t gain = ADS1219_GAIN_1);
+
+    /// @brief Configure the data rate (samples per second).
+    /// @return True if successful, false otherwise.
+    bool setDataRate(const ads1219_data_rate_config_t rate = ADS1219_DATA_RATE_20SPS);
+
+    /// @brief Configure the voltage reference.
+    /// @return True if successful, false otherwise.
+    bool setVoltageReference(const ads1219_vref_config_t vRef = ADS1219_VREF_INTERNAL);
+
     /// @brief  Return the conversion result which was read by readConversion.
     /// Convert it to mV using referenceVoltageMillivolts and the _adcGain.
     /// @param  referenceVoltageMillivolts Usually the internal 2.048V reference voltage.

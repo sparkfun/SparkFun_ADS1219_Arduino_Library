@@ -80,6 +80,40 @@ bool SfeADS1219Driver::setInputMultiplexer(const ads1219_input_multiplexer_confi
     return (_theBus->writeRegisterByte(kSfeADS1219RegConfigWrite, config.byte) == kSTkErrOk); // Write the config register
 }
 
+/// @brief Configure the gain.
+/// @return True if successful, false otherwise.
+bool setGain(const ads1219_gain_config_t gain)
+{
+    sfe_ads1219_reg_cfg_t config;
+    if (_theBus->readRegisterByte(kSfeADS1219RegConfigRead, config.byte) != kSTkErrOk) // Read the config register
+        return false;
+    config.gain = (uint8_t)gain; // Modify (only) the gain
+    _adcGain = gain; // Update the local copy of the gain for voltage conversion
+    return (_theBus->writeRegisterByte(kSfeADS1219RegConfigWrite, config.byte) == kSTkErrOk); // Write the config register
+}
+
+/// @brief Configure the data rate (samples per second).
+/// @return True if successful, false otherwise.
+bool setDataRate(const ads1219_data_rate_config_t rate)
+{
+    sfe_ads1219_reg_cfg_t config;
+    if (_theBus->readRegisterByte(kSfeADS1219RegConfigRead, config.byte) != kSTkErrOk) // Read the config register
+        return false;
+    config.dr = (uint8_t)rate; // Modify (only) the data rate
+    return (_theBus->writeRegisterByte(kSfeADS1219RegConfigWrite, config.byte) == kSTkErrOk); // Write the config register
+}
+
+/// @brief Configure the voltage reference.
+/// @return True if successful, false otherwise.
+bool setVoltageReference(const ads1219_vref_config_t vRef)
+{
+    sfe_ads1219_reg_cfg_t config;
+    if (_theBus->readRegisterByte(kSfeADS1219RegConfigRead, config.byte) != kSTkErrOk) // Read the config register
+        return false;
+    config.vref = (uint8_t)vRef; // Modify (only) the voltage reference
+    return (_theBus->writeRegisterByte(kSfeADS1219RegConfigWrite, config.byte) == kSTkErrOk); // Write the config register
+}
+
 /// @brief Reads the ADC conversion data, converts it to a usable form, and
 /// saves it to the internal result variable.
 /// @return true if successful, false otherwise.
