@@ -129,14 +129,14 @@ bool SfeADS1219Driver::readConversion()
         union {
             int32_t i32;
             uint32_t u32;
-        } iu32;
+        } iu32; // Use a union to avoid signed / unsigned ambiguity
         iu32.u32 = rawBytes[0];
         iu32.u32 = (iu32.u32 << 8) | rawBytes[1];
         iu32.u32 = (iu32.u32 << 8) | rawBytes[2];
         // Preserve the 2's complement.
         if (0x00100000 == (iu32.u32 & 0x00100000))
             iu32.u32 = iu32.u32 | 0xFF000000;
-        _adcResult = iu32.i32; // Store the result
+        _adcResult = iu32.i32; // Store the signed result
     }
     return result;
 }
