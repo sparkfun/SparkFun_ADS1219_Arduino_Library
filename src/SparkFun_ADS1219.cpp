@@ -82,7 +82,7 @@ bool SfeADS1219Driver::setInputMultiplexer(const ads1219_input_multiplexer_confi
 
 /// @brief Configure the gain.
 /// @return True if successful, false otherwise.
-bool setGain(const ads1219_gain_config_t gain)
+bool SfeADS1219Driver::setGain(const ads1219_gain_config_t gain)
 {
     sfe_ads1219_reg_cfg_t config;
     if (_theBus->readRegisterByte(kSfeADS1219RegConfigRead, config.byte) != kSTkErrOk) // Read the config register
@@ -94,7 +94,7 @@ bool setGain(const ads1219_gain_config_t gain)
 
 /// @brief Configure the data rate (samples per second).
 /// @return True if successful, false otherwise.
-bool setDataRate(const ads1219_data_rate_config_t rate)
+bool SfeADS1219Driver::setDataRate(const ads1219_data_rate_config_t rate)
 {
     sfe_ads1219_reg_cfg_t config;
     if (_theBus->readRegisterByte(kSfeADS1219RegConfigRead, config.byte) != kSTkErrOk) // Read the config register
@@ -105,7 +105,7 @@ bool setDataRate(const ads1219_data_rate_config_t rate)
 
 /// @brief Configure the voltage reference.
 /// @return True if successful, false otherwise.
-bool setVoltageReference(const ads1219_vref_config_t vRef)
+bool SfeADS1219Driver::setVoltageReference(const ads1219_vref_config_t vRef)
 {
     sfe_ads1219_reg_cfg_t config;
     if (_theBus->readRegisterByte(kSfeADS1219RegConfigRead, config.byte) != kSTkErrOk) // Read the config register
@@ -120,7 +120,9 @@ bool setVoltageReference(const ads1219_vref_config_t vRef)
 bool SfeADS1219Driver::readConversion()
 {
     uint8_t rawBytes[3];
-    bool result = (_theBus->readRegisterRegion(kSfeADS1219CommandReadData, (uint8_t *)rawBytes, 3) == 3);
+    size_t readBytes;
+    bool result = (_theBus->readRegisterRegion(kSfeADS1219CommandReadData, (uint8_t *)rawBytes, 3, readBytes) == kSTkErrOk);
+    result = result && (readBytes == 3); // Check three bytes were returned
     if (result)
     {
         // Data is 3-bytes (24-bits), big-endian (MSB first).
@@ -166,6 +168,24 @@ bool SfeADS1219Driver::dataReady(void)
     return (result && (status.drdy == 1));
 }
 
+/// @brief  Read the ADS1219 Configuration Register into a sfe_ads1219_reg_cfg_t struct.
+/// @param  config Pointer to the sfe_ads1219_reg_cfg_t struct to hold the register contents.
+/// @return True if successful, false otherwise.
+bool SfeADS1219Driver::getConfigurationRegister(sfe_ads1219_reg_cfg_t *config)
+{
+    return (_theBus->readRegisterByte(kSfeADS1219RegConfigRead, config->byte) == kSTkErrOk); // Read the config register
+}
+
+/// @brief  Write a sfe_ads1219_reg_cfg_t struct into the ADS1219 Configuration Register.
+/// @param  config A sfe_ads1219_reg_cfg_t struct holding the register contents.
+/// @return True if successful, false otherwise.
+bool SfeADS1219Driver::setConfigurationRegister(sfe_ads1219_reg_cfg_t config)
+{
+    return (_theBus->writeRegisterByte(kSfeADS1219RegConfigWrite, config.byte) == kSTkErrOk); // Write the config register
+}
+
+/// @brief  PRIVATE: update the local pointer to the I2C bus.
+/// @param  theBus Pointer to the bus object.
 void SfeADS1219Driver::setCommunicationBus(sfeTkArdI2C *theBus)
 {
     _theBus = theBus;

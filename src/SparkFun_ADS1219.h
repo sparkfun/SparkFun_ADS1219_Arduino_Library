@@ -210,6 +210,16 @@ public:
     /// @return true if data is ready.
     bool dataReady(void);
 
+    /// @brief  Read the ADS1219 Configuration Register into a sfe_ads1219_reg_cfg_t struct.
+    /// @param  config Pointer to the sfe_ads1219_reg_cfg_t struct to hold the register contents.
+    /// @return True if successful, false otherwise.
+    bool getConfigurationRegister(sfe_ads1219_reg_cfg_t *config);
+
+    /// @brief  Write a sfe_ads1219_reg_cfg_t struct into the ADS1219 Configuration Register.
+    /// @param  config A sfe_ads1219_reg_cfg_t struct holding the register contents.
+    /// @return True if successful, false otherwise.
+    bool setConfigurationRegister(sfe_ads1219_reg_cfg_t config);
+
 protected:
     /// @brief Sets the communication bus to the specified bus.
     /// @param theBus Bus to set as the communication devie.

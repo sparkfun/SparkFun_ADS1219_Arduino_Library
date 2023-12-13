@@ -38,7 +38,7 @@ bool interruptSeen = false; // A global flag to indicate if the DRDY interrupt h
 void dataReadyISR(void)
 {
   // Always keep interrupt Interrupt Service Routines as short as possible.
-  // Do not try to print or perform bus reads and writes inside them.
+  // Do not try to print or perform bus transfers inside them.
   // Here we only set the interruptSeen flag.
   // The ADC conversion result will be read in the loop().
   interruptSeen = true;
@@ -54,9 +54,11 @@ void setup()
   {
     delay(100); // Wait for the user to open the Serial Monitor
   };
-  Serial.println("SparkFun ADS1219 Example");
+  //Serial.println("SparkFun ADS1219 Example"); // Commented for the Serial Plotter
 
   Wire.begin(); // Begin the I2C bus
+
+  Wire.setClock(400000); // We are OK at 100kHz, but 400kHz is better
 
   // Initialize ADC - this also performs a soft reset
   while (myADC.begin() == false)
@@ -68,7 +70,8 @@ void setup()
   // Configure the input multiplexer
   myADC.setInputMultiplexer(ADS1219_CONFIG_MUX_SINGLE_0); // Read the voltage between AIN0 and GND
 
-  // Configure the gain to x4, so we can measuure small voltages with higher resolution
+  // Set the gain to x4, so we can measure small voltages with higher resolution
+  // Note: we are limited to 0.512V max when using a gain of 4 and the internal 2.048V reference
   myADC.setGain(ADS1219_GAIN_4);
 
   // Configure the data rate. The ADC will sample at 1000 samples per second
@@ -91,7 +94,7 @@ void loop()
   {
     interruptSeen = false; // Clear the flag ready for the next interrupt
     myADC.readConversion(); // Read the conversion result from the ADC. Store it internally.
-    int32_t rawADC = myADC.getConversionRaw(); // Just to be different, read the raw ADC value.
-    Serial.println(rawADC); // Print the raw ADC value
+    float milliVolts = myADC.getConversionMillivolts(); // Convert to millivolts.
+    Serial.println(milliVolts, 3); // Print milliVolts with 3 decimal places
   }
 }
