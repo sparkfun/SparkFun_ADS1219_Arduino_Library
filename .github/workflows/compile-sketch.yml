@@ -92,7 +92,7 @@ jobs:
         run: echo running on branch ${GITHUB_REF##*/}
 
       - name: Compile Sketch
-        uses: arduino/compile-sketches@v1.1.0
+        uses: arduino/compile-sketches@v1
         with:
           platforms: ${{ matrix.board.platforms }}
           fqbn: ${{ matrix.board.fqbn }}
