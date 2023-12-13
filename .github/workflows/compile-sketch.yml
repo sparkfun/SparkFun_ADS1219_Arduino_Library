@@ -4,7 +4,6 @@ on:
   # - push 
   - pull_request
 
-
 jobs:
   compile-sketch:
     runs-on: ubuntu-latest
@@ -94,12 +93,16 @@ jobs:
       - name: Compile Sketch
         uses: arduino/compile-sketches@v1.1.0
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           platforms: ${{ matrix.board.platforms }}
           fqbn: ${{ matrix.board.fqbn }}
           libraries: |
             - source-path: ./
+            # Add library dependencies here: 
+            - source-url: https://github.com/sparkfun/SparkFun_Toolkit.git
+            # - name: name-of-library-registered-with-arduino-library-manager
           sketch-paths: |
-            - examples/Example01_Basic_SingleShot
+            - examples/Example05_AlternateAddress
           enable-warnings-report: true
           enable-deltas-report: true
           verbose: true
