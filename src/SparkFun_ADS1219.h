@@ -230,7 +230,7 @@ private:
 
     ads1219_gain_config_t _adcGain; // Local configuration value. ADC gain - needed for conversion to mV.
 
-    int32_t _adcResult; // Local store for the ADC conversion result. 24-Bit, shifted left for correct 2's complement
+    int32_t _adcResult; // Local store for the ADC conversion result. 24-Bit, 2's complement
 };
 
 class SfeADS1219ArdI2C : public SfeADS1219Driver

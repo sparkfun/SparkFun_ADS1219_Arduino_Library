@@ -126,12 +126,17 @@ bool SfeADS1219Driver::readConversion()
     if (result)
     {
         // Data is 3-bytes (24-bits), big-endian (MSB first).
-        _adcResult = rawBytes[0];
-        _adcResult = (_adcResult << 8) | rawBytes[1];
-        _adcResult = (_adcResult << 8) | rawBytes[2];
+        union {
+            int32_t i32;
+            uint32_t u32;
+        } iu32;
+        iu32.u32 = rawBytes[0];
+        iu32.u32 = (iu32.u32 << 8) | rawBytes[1];
+        iu32.u32 = (iu32.u32 << 8) | rawBytes[2];
         // Preserve the 2's complement.
-        if (_adcResult & (1 << 23))
-            _adcResult |= 0xFF000000;
+        if (0x00100000 == (iu32.u32 & 0x00100000))
+            iu32.u32 = iu32.u32 | 0xFF000000;
+        _adcResult = iu32.i32; // Store the result
     }
     return result;
 }
