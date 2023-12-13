@@ -4,7 +4,6 @@ on:
   # - push 
   - pull_request
 
-
 jobs:
   compile-sketch:
     runs-on: ubuntu-latest
@@ -92,8 +91,9 @@ jobs:
         run: echo running on branch ${GITHUB_REF##*/}
 
       - name: Compile Sketch
-        uses: arduino/compile-sketches@v1
+        uses: arduino/compile-sketches@v1.1.0
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           platforms: ${{ matrix.board.platforms }}
           fqbn: ${{ matrix.board.fqbn }}
           libraries: |
