@@ -98,6 +98,9 @@ jobs:
           fqbn: ${{ matrix.board.fqbn }}
           libraries: |
             - source-path: ./
+            # Add library dependencies here: 
+            - source-url: https://github.com/sparkfun/SparkFun_Toolkit.git
+            # - name: name-of-library-registered-with-arduino-library-manager
           sketch-paths: |
             - examples/Example05_AlternateAddress
           enable-warnings-report: true
