@@ -1,11 +1,13 @@
 /*
-  Configuring the ADS1219 ADC input multiplexer.
+  Using alternate I2C addresses for the ADS1219 ADC.
 
-  The ADS1219 has an input multiplexer which allows it to read:
-  single-ended voltages from AIN0/1/2/3;
-  differential voltages from AIN0-AIN1, AIN2-AIN3, AIN1-AIN2;
-  or the input can be shorted (to AVDD divided by two) for offset measurement.
-  This example shows how to configure the multiplexer and then read the voltage.
+  This example shows how to use an alternate address for the ADC.
+
+  The ADS1219 has two address pins: A1 and A0. These can be tied to
+  SCL, SDA, VDD or DGND to provide 16 possible I2C addresses (0x40 - 0x4F).
+  On the SparkX Qwiic ADS1219, split-pad jumpers make this easy.
+  The A0 jumpers are labelled 0,1,2,3. The A1 jumpers are labelled 0,4,8,C.
+  To set the address to 0x4F: open both 0 jumpers, solder 3 and C closed.
 
   By: Paul Clark
   SparkFun Electronics
@@ -42,27 +44,17 @@ void setup()
 
   Wire.begin(); // Begin the I2C bus
 
-  // Initialize ADC - this also performs a soft reset
-  while (myADC.begin() == false)
+  bool begun;
+  begun = myADC.begin(Wire, 0x4F); // Initialize the ADC - using a custom bus and address - see notes above
+  begun = myADC.begin(0x4F); // This is also possible. It defaults to Wire
+
+  if (!begun)
   {
-    Serial.println("ADC failed to begin. Please check your wiring! Retrying...");
-    delay(1000);
+    Serial.println("ADC not detected! Please check the address and try again...");
+    while (1); // Do nothing more
   }
 
-  // Configure the input multiplexer. Options are:
-  // ADS1219_CONFIG_MUX_DIFF_P0_N1 (Default)
-  // ADS1219_CONFIG_MUX_DIFF_P2_N3
-  // ADS1219_CONFIG_MUX_DIFF_P1_N2
-  // ADS1219_CONFIG_MUX_SINGLE_0
-  // ADS1219_CONFIG_MUX_SINGLE_1
-  // ADS1219_CONFIG_MUX_SINGLE_2
-  // ADS1219_CONFIG_MUX_SINGLE_3
-  // ADS1219_CONFIG_MUX_SHORTED
-  myADC.setInputMultiplexer(ADS1219_CONFIG_MUX_SINGLE_0); // Read the voltage between AIN0 and GND
-
-  Serial.println("ADC initialized");
-
-  Serial.println("Reading the voltage through the input multiplexer");
+  Serial.println("Reading the differential voltage between AIN0 (+) and AIN1 (-)");
 }
 
 void loop()
@@ -75,7 +67,7 @@ void loop()
   }
 
   myADC.readConversion(); // Read the conversion result from the ADC. Store it internally.
-  float milliVolts = myADC.getConversionMillivolts(); // Convert to millivolts.
-  Serial.print("ADC voltage (mV): ");
-  Serial.println(milliVolts, 3); // Print milliVolts with 3 decimal places
+  int32_t sample = myADC.getConversionRaw(); // Get the raw ADC value. Note: this is NOT adjusted for gain.
+  Serial.print("Raw ADC value: ");
+  Serial.println(sample); // Print the raw ADC value
 }

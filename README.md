@@ -10,6 +10,13 @@ SparkFun ADS1219 Arduino Library
     </tr>
 </table>
 
+This is an Arduino Library for the ADS1219 24-bit 4-channel ADC from TI. It allows you to fully configure the ADC.
+Examples are provided to show how to use: single-shot vs. continuous mode; the input multiplexer; gain;
+different sample rates; and alternate I2C addresses. You can read the ADC voltage in millivolts (compensated for gain)
+or as the raw signed value.
+
+Note: this library needs the [SparkFun Toolkit](https://github.com/sparkfun/SparkFun_Toolkit).
+
 Repository Contents
 -------------------
 
@@ -19,6 +26,7 @@ Repository Contents
 
 Documentation
 --------------
+
 * **[Hardware Repository](https://github.com/sparkfunX/SparkX_ADC_ADS1219)** - Hardware repository for the SparkX 24-Bit 4-Channel ADC - ADS1219 (Qwiic).
 
 License Information

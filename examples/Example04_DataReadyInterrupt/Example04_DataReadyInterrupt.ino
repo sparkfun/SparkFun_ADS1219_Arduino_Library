@@ -17,7 +17,7 @@
   Hardware Connections:
   IoT RedBoard --> ADS1219
   QWIIC        --> QWIIC
-  Connect an interrupt-capable IO pin to the DRDY breakout pad, using a jumper wire.
+  Use a jumper wire to connect the DRDY breakout pad to an interrupt-capable I/O pin
 
   Open the serial monitor at 115200 baud to see the voltage.
 
@@ -46,14 +46,13 @@ void dataReadyISR(void)
 
 void setup()
 {
-
   delay(1000); // Allow time for the microcontroller to start up
 
   Serial.begin(115200); // Begin the Serial console
   while (!Serial)
   {
     delay(100); // Wait for the user to open the Serial Monitor
-  };
+  }
   //Serial.println("SparkFun ADS1219 Example"); // Commented for the Serial Plotter
 
   Wire.begin(); // Begin the I2C bus

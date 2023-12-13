@@ -28,14 +28,13 @@ SfeADS1219ArdI2C myADC;
 
 void setup()
 {
-
   delay(1000); // Allow time for the microcontroller to start up
 
   Serial.begin(115200); // Begin the Serial console
   while (!Serial)
   {
     delay(100); // Wait for the user to open the Serial Monitor
-  };
+  }
   Serial.println("SparkFun ADS1219 Example");
 
   Wire.begin(); // Begin the I2C bus
