@@ -187,7 +187,7 @@ bool SfeADS1219Driver::getConfigurationRegister(sfe_ads1219_reg_cfg_t &config)
 /// @return True if successful, false otherwise.
 bool SfeADS1219Driver::setConfigurationRegister(sfe_ads1219_reg_cfg_t config)
 {
-    _adcGain = config.gain;                                                                   // Update the local copy of the gain for voltage conversion
+    _adcGain = (ads1219_gain_config_t)config.gain;                                                                   // Update the local copy of the gain for voltage conversion
     return (_theBus->writeRegisterByte(kSfeADS1219RegConfigWrite, config.byte) == kSTkErrOk); // Write the config register
 }
 
