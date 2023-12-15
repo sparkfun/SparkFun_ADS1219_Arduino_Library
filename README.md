@@ -3,7 +3,7 @@ SparkFun ADS1219 Arduino Library
 
 <table class="table table-hover table-striped table-bordered">
     <tr align="center">
-        <td><a href="https://www.sparkfun.com/products/23455"><img src="" alt="Standard"></a></td>
+        <td><a href="https://www.sparkfun.com/products/23455"><img src="https://cdn.sparkfun.com/r/600-600/assets/parts/2/3/7/6/5/23455-Qwiic-24-bit-ADC-4-channel-Feature.jpg" alt="Standard"></a></td>
     </tr>
     <tr align="center">
         <td><a href="https://www.sparkfun.com/products/23455">SparkX 24-Bit 4-Channel ADC - ADS1219 (Qwiic)</a></td>
