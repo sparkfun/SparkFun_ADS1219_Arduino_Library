@@ -65,7 +65,7 @@ bool SfeADS1219Driver::setConversionMode(const ads1219_conversion_mode_config_t 
     sfe_ads1219_reg_cfg_t config;
     if (_theBus->readRegisterByte(kSfeADS1219RegConfigRead, config.byte) != kSTkErrOk) // Read the config register
         return false;
-    config.cm = (uint8_t)mode; // Modify (only) the conversion mode
+    config.cm = (uint8_t)mode;                                                                // Modify (only) the conversion mode
     return (_theBus->writeRegisterByte(kSfeADS1219RegConfigWrite, config.byte) == kSTkErrOk); // Write the config register
 }
 
@@ -76,7 +76,7 @@ bool SfeADS1219Driver::setInputMultiplexer(const ads1219_input_multiplexer_confi
     sfe_ads1219_reg_cfg_t config;
     if (_theBus->readRegisterByte(kSfeADS1219RegConfigRead, config.byte) != kSTkErrOk) // Read the config register
         return false;
-    config.mux = (uint8_t)mux; // Modify (only) the input multiplexer
+    config.mux = (uint8_t)mux;                                                                // Modify (only) the input multiplexer
     return (_theBus->writeRegisterByte(kSfeADS1219RegConfigWrite, config.byte) == kSTkErrOk); // Write the config register
 }
 
@@ -87,8 +87,8 @@ bool SfeADS1219Driver::setGain(const ads1219_gain_config_t gain)
     sfe_ads1219_reg_cfg_t config;
     if (_theBus->readRegisterByte(kSfeADS1219RegConfigRead, config.byte) != kSTkErrOk) // Read the config register
         return false;
-    config.gain = (uint8_t)gain; // Modify (only) the gain
-    _adcGain = gain; // Update the local copy of the gain for voltage conversion
+    config.gain = (uint8_t)gain;                                                              // Modify (only) the gain
+    _adcGain = gain;                                                                          // Update the local copy of the gain for voltage conversion
     return (_theBus->writeRegisterByte(kSfeADS1219RegConfigWrite, config.byte) == kSTkErrOk); // Write the config register
 }
 
@@ -99,7 +99,7 @@ bool SfeADS1219Driver::setDataRate(const ads1219_data_rate_config_t rate)
     sfe_ads1219_reg_cfg_t config;
     if (_theBus->readRegisterByte(kSfeADS1219RegConfigRead, config.byte) != kSTkErrOk) // Read the config register
         return false;
-    config.dr = (uint8_t)rate; // Modify (only) the data rate
+    config.dr = (uint8_t)rate;                                                                // Modify (only) the data rate
     return (_theBus->writeRegisterByte(kSfeADS1219RegConfigWrite, config.byte) == kSTkErrOk); // Write the config register
 }
 
@@ -110,7 +110,7 @@ bool SfeADS1219Driver::setVoltageReference(const ads1219_vref_config_t vRef)
     sfe_ads1219_reg_cfg_t config;
     if (_theBus->readRegisterByte(kSfeADS1219RegConfigRead, config.byte) != kSTkErrOk) // Read the config register
         return false;
-    config.vref = (uint8_t)vRef; // Modify (only) the voltage reference
+    config.vref = (uint8_t)vRef;                                                              // Modify (only) the voltage reference
     return (_theBus->writeRegisterByte(kSfeADS1219RegConfigWrite, config.byte) == kSTkErrOk); // Write the config register
 }
 
@@ -126,7 +126,8 @@ bool SfeADS1219Driver::readConversion()
     if (result)
     {
         // Data is 3-bytes (24-bits), big-endian (MSB first).
-        union {
+        union
+        {
             int32_t i32;
             uint32_t u32;
         } iu32; // Use a union to avoid signed / unsigned ambiguity
@@ -174,11 +175,11 @@ bool SfeADS1219Driver::dataReady(void)
 }
 
 /// @brief  Read the ADS1219 Configuration Register into a sfe_ads1219_reg_cfg_t struct.
-/// @param  config Pointer to the sfe_ads1219_reg_cfg_t struct to hold the register contents.
+/// @param  config Reference of a sfe_ads1219_reg_cfg_t struct to hold the register contents.
 /// @return True if successful, false otherwise.
-bool SfeADS1219Driver::getConfigurationRegister(sfe_ads1219_reg_cfg_t *config)
+bool SfeADS1219Driver::getConfigurationRegister(sfe_ads1219_reg_cfg_t &config)
 {
-    return (_theBus->readRegisterByte(kSfeADS1219RegConfigRead, config->byte) == kSTkErrOk); // Read the config register
+    return (_theBus->readRegisterByte(kSfeADS1219RegConfigRead, config.byte) == kSTkErrOk); // Read the config register
 }
 
 /// @brief  Write a sfe_ads1219_reg_cfg_t struct into the ADS1219 Configuration Register.
@@ -186,6 +187,7 @@ bool SfeADS1219Driver::getConfigurationRegister(sfe_ads1219_reg_cfg_t *config)
 /// @return True if successful, false otherwise.
 bool SfeADS1219Driver::setConfigurationRegister(sfe_ads1219_reg_cfg_t config)
 {
+    _adcGain = config.gain;                                                                   // Update the local copy of the gain for voltage conversion
     return (_theBus->writeRegisterByte(kSfeADS1219RegConfigWrite, config.byte) == kSTkErrOk); // Write the config register
 }
 

@@ -199,7 +199,7 @@ public:
     /// @param  referenceVoltageMillivolts Usually the internal 2.048V reference voltage.
     /// But the user can override with (REFP - REFN) when using the external reference.
     /// @return The voltage in millivolts
-    float getConversionMillivolts(float referenceVoltageMillivolts = 2048);
+    float getConversionMillivolts(float referenceVoltageMillivolts = 2048.0);
 
     /// @brief  Return the raw conversion result which was read by readConversion.
     /// @return The raw signed conversion result. 24-bit (2's complement).
@@ -211,9 +211,9 @@ public:
     bool dataReady(void);
 
     /// @brief  Read the ADS1219 Configuration Register into a sfe_ads1219_reg_cfg_t struct.
-    /// @param  config Pointer to the sfe_ads1219_reg_cfg_t struct to hold the register contents.
+    /// @param  config Reference of a sfe_ads1219_reg_cfg_t struct to hold the register contents.
     /// @return True if successful, false otherwise.
-    bool getConfigurationRegister(sfe_ads1219_reg_cfg_t *config);
+    bool getConfigurationRegister(sfe_ads1219_reg_cfg_t &config);
 
     /// @brief  Write a sfe_ads1219_reg_cfg_t struct into the ADS1219 Configuration Register.
     /// @param  config A sfe_ads1219_reg_cfg_t struct holding the register contents.
