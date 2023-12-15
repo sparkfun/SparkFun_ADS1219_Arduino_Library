@@ -13,6 +13,20 @@ SfeADS1219ArdI2C	KEYWORD1
 #######################################
 
 begin	KEYWORD2
+reset	KEYWORD2
+startSync	KEYWORD2
+powerDown	KEYWORD2
+readConversion	KEYWORD2
+setConversionMode	KEYWORD2
+setInputMultiplexer	KEYWORD2
+setGain	KEYWORD2
+setDataRate	KEYWORD2
+setVoltageReference	KEYWORD2
+getConversionMillivolts	KEYWORD2
+getConversionRaw	KEYWORD2
+dataReady	KEYWORD2
+getConfigurationRegister	KEYWORD2
+setConfigurationRegister	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
