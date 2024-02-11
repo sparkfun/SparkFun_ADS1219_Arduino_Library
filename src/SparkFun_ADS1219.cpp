@@ -135,7 +135,7 @@ bool SfeADS1219Driver::readConversion()
         iu32.u32 = (iu32.u32 << 8) | rawBytes[1];
         iu32.u32 = (iu32.u32 << 8) | rawBytes[2];
         // Preserve the 2's complement.
-        if (0x00100000 == (iu32.u32 & 0x00100000))
+        if (0x00800000 == (iu32.u32 & 0x00800000))
             iu32.u32 = iu32.u32 | 0xFF000000;
         _adcResult = iu32.i32; // Store the signed result
     }
