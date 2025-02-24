@@ -33,7 +33,7 @@ bool SfeADS1219Driver::begin()
     delay(1); // Wait >100us (tRSSTA)
 
     sfe_ads1219_reg_cfg_t config;
-    bool result = (_theBus->readRegister((uint8_t)kSfeADS1219RegConfigRead, config.byte) == ksfTkErrOk);
+    bool result = (_theBus->readRegister(kSfeADS1219RegConfigRead, config.byte) == ksfTkErrOk);
     return (result && (config.byte == 0));
 }
 
