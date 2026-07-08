@@ -102,8 +102,7 @@ const uint8_t kSfeADS1219RegConfigRead = 0x20;  // Register address for read
 
 // A union is used here so that individual values from the register can be
 // accessed or the whole register can be accessed.
-typedef union
-{
+typedef union {
     struct
     {
         uint8_t vref : 1; // Voltage reference configuration : Configuration Register Bit 0
@@ -123,11 +122,10 @@ const uint8_t kSfeADS1219RegStatusRead = 0x24; // Register address for read
 
 // A union is used here so that individual values from the register can be
 // accessed or the whole register can be accessed.
-typedef union
-{
+typedef union {
     struct
     {
-        uint8_t id : 7;   // Device ID = 0x60 - but datasheet says "Reserved. Values are subject to change without notice"
+        uint8_t id : 7; // Device ID = 0x60 - but datasheet says "Reserved. Values are subject to change without notice"
         uint8_t drdy : 1; // Conversion result ready flag : Status Register Bit 7
     };
     uint8_t byte;
@@ -146,10 +144,9 @@ const uint8_t kSfeADS1219CommandReadData = 0x10;  // Read conversion data by com
 
 class SfeADS1219Driver
 {
-public:
+  public:
     // @brief Constructor. Instantiate the driver object using the specified address (if desired).
-    SfeADS1219Driver()
-        : _adcGain{ADS1219_GAIN_1}, _adcResult{0}
+    SfeADS1219Driver() : _adcGain{ADS1219_GAIN_1}, _adcResult{0}
     {
     }
 
@@ -220,13 +217,13 @@ public:
     /// @return True if successful, false otherwise.
     bool setConfigurationRegister(sfe_ads1219_reg_cfg_t config);
 
-protected:
+  protected:
     /// @brief Sets the communication bus to the specified bus.
     /// @param theBus Bus to set as the communication devie.
-    void setCommunicationBus(sfeTkArdI2C *theBus);
+    void setCommunicationBus(sfTkArdI2C *theBus);
 
-private:
-    sfeTkArdI2C *_theBus; // Pointer to bus device.
+  private:
+    sfTkArdI2C *_theBus; // Pointer to bus device.
 
     ads1219_gain_config_t _adcGain; // Local configuration value. ADC gain - needed for conversion to mV.
 
@@ -235,7 +232,7 @@ private:
 
 class SfeADS1219ArdI2C : public SfeADS1219Driver
 {
-public:
+  public:
     SfeADS1219ArdI2C()
     {
     }
@@ -244,7 +241,7 @@ public:
     /// @return True if successful, false otherwise.
     bool begin(void)
     {
-        if (_theI2CBus.init(kDefaultADS1219Addr) != kSTkErrOk)
+        if (_theI2CBus.init(kDefaultADS1219Addr) != ksfTkErrOk)
             return false;
 
         setCommunicationBus(&_theI2CBus);
@@ -258,7 +255,7 @@ public:
     /// @return True if successful, false otherwise.
     bool begin(const uint8_t &address)
     {
-        if (_theI2CBus.init(address) != kSTkErrOk)
+        if (_theI2CBus.init(address) != ksfTkErrOk)
             return false;
 
         setCommunicationBus(&_theI2CBus);
@@ -272,7 +269,7 @@ public:
     /// @return True if successful, false otherwise.
     bool begin(TwoWire &wirePort, const uint8_t &address)
     {
-        if (_theI2CBus.init(wirePort, address) != kSTkErrOk)
+        if (_theI2CBus.init(wirePort, address) != ksfTkErrOk)
             return false;
 
         setCommunicationBus(&_theI2CBus);
@@ -282,6 +279,6 @@ public:
         return SfeADS1219Driver::begin();
     }
 
-private:
-    sfeTkArdI2C _theI2CBus;
+  private:
+    sfTkArdI2C _theI2CBus;
 };
