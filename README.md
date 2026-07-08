@@ -1,14 +1,22 @@
-SparkFun ADS1219 Arduino Library 
-========================================
+![SparkFun ADS1219 Arduino Library](docs/images/gh-banner-arduino-ads1219.png  "SparkFun ADS1219 Arduino Library")
 
-<table class="table table-hover table-striped table-bordered">
-    <tr align="center">
-        <td><a href="https://www.sparkfun.com/products/23455"><img src="https://cdn.sparkfun.com/r/600-600/assets/parts/2/3/7/6/5/23455-Qwiic-24-bit-ADC-4-channel-Feature.jpg" alt="Standard"></a></td>
-    </tr>
-    <tr align="center">
-        <td><a href="https://www.sparkfun.com/products/23455">SparkX 24-Bit 4-Channel ADC - ADS1219 (Qwiic)</a></td>
-    </tr>
-</table>
+# SparkFun ADS1219 Arduino Library
+
+<!--  Update this with a single sentence about this library -->
+
+Arduino Library for the SparkFun ADS1219 Qwiic 24-Bit ADC adds four channels of high-precision, 24-bit analog input to your project over I2C, featuring programmable gain and up to 16 unique addresses
+
+<!-- 
+ Update these links and URLs for the badges to work correctly
+ -->
+
+![GitHub License](https://img.shields.io/github/license/sparkfun/SparkFun_ADS1219_Arduino_Library)
+![Release](https://img.shields.io/github/v/release/sparkfun/SparkFun_ADS1219_Arduino_Library)
+![Release Date](https://img.shields.io/github/release-date/sparkfun/SparkFun_ADS1219_Arduino_Library)
+![Documentation - build](https://img.shields.io/github/actions/workflow/status/sparkfun/SparkFun_ADS1219_Arduino_Library/build-deploy-ghpages.yml?label=doc%20build)
+[![Compile Test](https://github.com/sparkfun/SparkFun_ADS1219_Arduino_Library/actions/workflows/compile-sketch.yml/badge.svg)](https://github.com/sparkfun/SparkFun_ADS1219_Arduino_Library/actions/workflows/compile-sketch.yml)
+![GitHub issues](https://img.shields.io/github/issues/sparkfun/SparkFun_ADS1219_Arduino_Library)
+
 
 This is an Arduino Library for the ADS1219 24-bit 4-channel ADC from TI. It allows you to fully configure the ADC.
 Examples are provided to show how to use: single-shot vs. continuous mode; the input multiplexer; gain;
@@ -17,27 +25,36 @@ or as the raw signed value.
 
 Note: this library needs the [SparkFun Toolkit](https://github.com/sparkfun/SparkFun_Toolkit).
 
-Repository Contents
--------------------
 
-* **/workflows** - GitHub workflow actions files
-* **/examples** - Arduino examples for the ADS1219
-* **/src** - Library source files (.cpp & .h)
+# Repository Contents
 
-Documentation
---------------
+* **/examples** - Example sketches for the library (.ino). Run these from the Arduino IDE.
+* **/src** - Source files for the library (.cpp, .h).
+* **/docs** - configuration files for the documentation.
+* **keywords.txt** - Keywords from this library that will be highlighted in the Arduino IDE.
+* **library.properties** - General library properties for the Arduino package manager.
 
-* **[Hardware Repository](https://github.com/sparkfunX/SparkX_ADC_ADS1219)** - Hardware repository for the SparkX 24-Bit 4-Channel ADC - ADS1219 (Qwiic).
+# Documentation
 
-License Information
--------------------
 
-This product is _**open source**_! 
+ <!-- *Link to documentation for this library here* -->
 
-Please review the LICENSE.md file for license information. 
+* **[Library Documentation](https://docs.sparkfun.com/SparkFun_ADS1219_Arduino_Library/)** - Arduino Library Documentation for this repository.
+* **[Hookup Guide](https://docs.sparkfun.com/SparkFun_Qwiic_ADC_ADS1219/)** - Hookup guide for the SparkFun ADS1219 Qwiic Board.
+* **[Installing an Arduino Library Guide](https://learn.sparkfun.com/tutorials/installing-an-arduino-library)** - Basic information on how to install an Arduino library.
+* **[Hardware GitHub Repository - Qwiic 1x1](https://github.com/sparkfunX/SparkX_ADC_ADS1219)** - Main repository (including hardware files) the SparkFun ADS1219 qwiic board
 
-If you have any questions or concerns on licensing, please contact technical support on our [SparkFun forums](https://forum.sparkfun.com/viewforum.php?f=152).
 
-Distributed as-is; no warranty is given.
+## Products That Use This Library
 
-- Your friends at SparkFun.
+ <!-- List the SparkFun products that use this library here -->
+
+* [ SEN-27544](https://www.sparkfun.com/sparkfun-qwiic-24-bit-adc-4-channel-ads1219.html) - SparkFun Qwiic 24 Bit ADC - 4 Channel (ADS1219)
+
+
+## License Information
+
+This product is ***open source***!
+
+This product is licensed using the [MIT Open Source License](https://opensource.org/license/mit)
+
