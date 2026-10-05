@@ -33,7 +33,7 @@
 
 #include <SparkFun_ADS1219.h> // Click here to get the library: http://librarymanager/All#SparkFun_ADS1219
 
-SfeADS1219ArdI2C myADC;
+SparkFunADS1219 myADC;
 
 void setup()
 {

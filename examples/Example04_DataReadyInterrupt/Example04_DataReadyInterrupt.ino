@@ -29,7 +29,7 @@
 
 #include <SparkFun_ADS1219.h> // Click here to get the library: http://librarymanager/All#SparkFun_ADS1219
 
-SfeADS1219ArdI2C myADC;
+SparkFunADS1219 myADC;
 
 const int interruptPin = 4; // This is the FREE pin on the ESP32 Thing Plus C. Change this if required.
 

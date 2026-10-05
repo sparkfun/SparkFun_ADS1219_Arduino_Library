@@ -218,3 +218,9 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+#################
+## Doxygen output
+#################
+
+docs/html

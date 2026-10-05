@@ -24,7 +24,7 @@
 
 #include <SparkFun_ADS1219.h> // Click here to get the library: http://librarymanager/All#SparkFun_ADS1219
 
-SfeADS1219ArdI2C myADC;
+SparkFunADS1219 myADC;
 
 void setup()
 {
@@ -53,7 +53,7 @@ void setup()
 
 void loop()
 {
-  if (myADC.startSync()) // Start a single-shot conversion. This will return true on success.
+  if (myADC.startSync() == ksfTkErrOk) // Start a single-shot conversion. This will return ksfTkErrOk on success.
   {
     while (myADC.dataReady() == false) // Check if the conversion is complete. This will return true if data is ready.
     {

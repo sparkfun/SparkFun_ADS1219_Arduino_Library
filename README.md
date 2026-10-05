@@ -25,6 +25,11 @@ or as the raw signed value.
 
 Note: this library needs the [SparkFun Toolkit](https://github.com/sparkfun/SparkFun_Toolkit).
 
+> [!NOTE]
+> Version 2.0 of this library is built on the [SparkFun Toolkit](https://github.com/sparkfun/SparkFun_Toolkit). The library class is now `SparkFunADS1219`, and device methods (`startSync()`, `readConversion()`, `setGain()`, etc.) return a `sfTkError_t` value, which is `ksfTkErrOk` (0) on success. `begin()` and `dataReady()` still return `true` on success.
+>
+> Existing sketches that use the `SfeADS1219ArdI2C` class continue to work unchanged - this class retains the version 1.x `true`/`false` return values, but is deprecated.
+
 
 # Repository Contents
 

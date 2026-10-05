@@ -6,13 +6,18 @@
 # Datatypes (KEYWORD1)
 #######################################
 
+SparkFunADS1219	KEYWORD1
+sfDevADS1219	KEYWORD1
 SfeADS1219ArdI2C	KEYWORD1
+sfe_ads1219_reg_cfg_t	KEYWORD1
+sfe_ads1219_reg_status_t	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
 
 begin	KEYWORD2
+isConnected	KEYWORD2
 reset	KEYWORD2
 startSync	KEYWORD2
 powerDown	KEYWORD2
@@ -31,6 +36,8 @@ setConfigurationRegister	KEYWORD2
 #######################################
 # Constants (LITERAL1)
 #######################################
+
+kDefaultADS1219Addr	LITERAL1
 
 ADS1219_CONFIG_MUX_DIFF_P0_N1	LITERAL1
 ADS1219_CONFIG_MUX_DIFF_P2_N3	LITERAL1
